@@ -1,0 +1,121 @@
+﻿@model UrlShortner.Models.RegistrationViewModel
+@{
+    ViewBag.Title = @UrlShortner.LocalResource.Resource.Profile;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>@UrlShortner.LocalResource.Resource.CreateUrlShort</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>@UrlShortner.LocalResource.Resource.UserDetails</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        
+                            @using (Html.BeginForm("ProfileView", "Client", FormMethod.Post, new { @id = "demo-form2", @class = "form-horizontal form-label-left", @enctype = "multipart/form-data" }))
+                            {
+
+                                @*<form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">*@
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            @UrlShortner.LocalResource.Resource.FirstName <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.FirstName, null, new { @class = "form-control col-md-7 col-xs-12" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            @UrlShortner.LocalResource.Resource.LastName <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.LastName, null, new { @class = "form-control col-md-7 col-xs-12" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            @UrlShortner.LocalResource.Resource.Email <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.Email, null, new { @class = "form-control col-md-7 col-xs-12" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            @UrlShortner.LocalResource.Resource.Phone <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.Phone, null, new { @class = "form-control col-md-7 col-xs-12" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            @UrlShortner.LocalResource.Resource.City <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.City, null, new { @class = "form-control col-md-7 col-xs-12" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            @UrlShortner.LocalResource.Resource.Zipcode <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.Zipcode, null, new { @class = "form-control col-md-7 col-xs-12" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            @UrlShortner.LocalResource.Resource.State <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.State, null, new { @class = "form-control col-md-7 col-xs-12" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                            @UrlShortner.LocalResource.Resource.Country <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.Country, null, new { @class = "form-control col-md-7 col-xs-12" })
+                                        </div>
+                                    </div>
+
+                                    @*@if (!string.IsNullOrEmpty(Session["UserName"].ToString()) && Session["UserName"].ToString() == "SuppeAdmin")
+                                        {
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                                    Profile Status <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    @Html.CheckBoxFor(model => model.ActiveStatus)
+                                                </div>
+                                            </div>
+                                        }*@
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            @*<a class="btn btn-primary" href="@Url.Action("index")">Cancel</a>*@
+                                            <input type="submit" class="btn btn-success" value="@UrlShortner.LocalResource.Resource.Update"/>
+                                        </div>
+                                    </div>
+                                @*</form>*@
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->

@@ -1,0 +1,30 @@
+﻿@model UrlShortner.Models.AdManageViewModel
+@{
+    Layout = null;
+    var Url = Session["AdUrl"];
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@UrlShortner.LocalResource.Resource.AiiMLink</title>   
+</head>
+<body>
+    <iframe src="@Url" id="iframe" width="100%">
+    </iframe> 
+    <script src="~/Scripts/js/jquery-1.11.2.js"></script>
+    <script src="~/Scripts/js/bootstrap.js"></script>
+    <script src="~/Scripts/js/scranimate.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <script>       
+        $(document).ready(function () {
+            $('iframe').load(function () {
+                this.style.height =
+                this.contentWindow.document.body.offsetHeight + 'px';
+            });
+        });
+    </script>
+</body>
+</html>

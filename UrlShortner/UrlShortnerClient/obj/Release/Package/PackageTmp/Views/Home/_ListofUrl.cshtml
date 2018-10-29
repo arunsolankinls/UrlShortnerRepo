@@ -1,0 +1,9 @@
+﻿@model List<UrlShortnerClient.Models.UrlShortnerListViewModel>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <a href=@item.OriginalUrl target="_blank">@item.ShortUrlKey</a>
+    }
+}

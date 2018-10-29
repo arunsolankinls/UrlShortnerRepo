@@ -1,0 +1,48 @@
+﻿@model IEnumerable<UrlShortner.Models.UrlVisitorLogViewModel>
+@{
+    ViewBag.Title = @UrlShortner.LocalResource.Resource.UrlVisitLog;
+}
+
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><small>@UrlShortner.LocalResource.Resource.Analytics</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">@UrlShortner.LocalResource.Resource.ShortUrl </th>
+                                        <th class="column-title">@UrlShortner.LocalResource.Resource.OriginalUrl</th>
+                                        <th class="column-title">@UrlShortner.LocalResource.Resource.VisitedDate </th>
+                                        <th class="column-title no-link last"><span class="nobr">@UrlShortner.LocalResource.Resource.TotalVIsit </span></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var itm in Model)
+                                        {
+                                            <tr>
+                                                <td>@itm.ShortUrl</td>
+                                                <td>@itm.OriginalUrl.Substring(0, Math.Min(itm.OriginalUrl.Length,50))</td>
+                                                <td>@itm.VisitedDate.ToString("dd MMM yyyy")</td>
+                                                <td>@itm.count</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

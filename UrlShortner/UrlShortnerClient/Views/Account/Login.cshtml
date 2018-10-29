@@ -1,0 +1,43 @@
+﻿@model UrlShortnerClient.Models.LoginViewModel
+@{
+    ViewBag.Title = UrlShortnerClient.LocalResource.Resource.Login;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Error = TempData["Error"];
+}
+
+<!-- ===================== -->
+<div class="w500">
+    <div class="log_tit_Bg">@UrlShortnerClient.LocalResource.Resource.Signin</div>
+    <div class="spacer10"></div>
+    @if (Error != null)
+    {
+        <span class="alert-warning">@TempData["Error"]</span>
+    }
+
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Email, null, new { @class = "form-control", @placeholder = @UrlShortnerClient.LocalResource.Resource.Usernameoremailaddress })
+            <span style="vertical-align: middle; color: red; font-weight: 400;">
+                @Html.ValidationMessageFor(model => model.Email)
+            </span>
+        </div>
+        <div class="form-group">
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = @UrlShortnerClient.LocalResource.Resource.Password })
+            <span style="vertical-align: middle; color: red; font-weight: 400;">
+                @Html.ValidationMessageFor(model => model.Password)
+            </span>
+        </div>
+        <div class="wid100">           
+            <input type="submit" class="btn btn-success" value='@UrlShortnerClient.LocalResource.Resource.Signin' />
+            <div class="spacer10"></div>
+            <a href="@Url.Action("ForgetPassword","Account")">@UrlShortnerClient.LocalResource.Resource.Iforgotmypassword</a>
+            <div class="spacer10"></div>
+            <a href="@Url.Action("Signup","Account")">@UrlShortnerClient.LocalResource.Resource.Registeranewmembership</a>
+        </div>
+    }
+
+  
+    
+</div>
+<!-- ===================== -->

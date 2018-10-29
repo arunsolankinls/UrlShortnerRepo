@@ -1,0 +1,67 @@
+﻿@model IEnumerable<UrlShortner.Models.RegistrationViewModel>
+@{
+    ViewBag.Title = @UrlShortner.LocalResource.Resource.Client;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string hosturl = System.Configuration.ConfigurationManager.AppSettings["HostUrl"] + "/AdHTML/";
+}
+
+ <!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><small>@UrlShortner.LocalResource.Resource.UserList</small></h2>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">@UrlShortner.LocalResource.Resource.UserName</th>
+                                        <th class="column-title">@UrlShortner.LocalResource.Resource.Email</th>
+                                        <th class="column-title no-link last"><span class="nobr">@UrlShortner.LocalResource.Resource.Action</span></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="even pointer">
+                                            <td><a href="@Url.Action("Edit", "Client", new { id = item.RegistId })">@item.FirstName @item.LastName</a></td>
+                                            <td>@item.Email </td>
+                                            <td class="last">
+                                                <a href="@Url.Action("Edit", "Client", new { id = item.RegistId })" class="btn btn-success">@UrlShortner.LocalResource.Resource.Edit</a>
+                                                @*<a href="@Url.Action("AdManage", "Client",new { id = item.RegistId })" class="btn btn-success">View Ad</a>*@
+                                                @{ 
+                                                    //string url = hosturl+item.RegistId + ".html";
+                                                    string url = item.AdManages.Where(x=>x.RegistAdId==item.RegistId).Select(x=>x.UploadFile).FirstOrDefault();
+                                                }
+                                                @if (!string.IsNullOrEmpty(url))
+                                                {
+                                                    <a href="@(hosturl + url)" target="_blank" rel="noopener noreferrer" class="btn btn-primary ">@UrlShortner.LocalResource.Resource.ViewAd</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@(hosturl + url)" target="_blank" rel="noopener noreferrer" class="btn btn-primary " style="pointer-events: none; cursor: default;opacity: 0.6;">@UrlShortner.LocalResource.Resource.ViewAd</a>
+                                                }
+                                            </td>                                          
+                                                                                     
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

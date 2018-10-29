@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="~/Scripts/js/jquery-1.11.2.js"></script>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+</body>
+</html>
+
+<script>
+
+    $(document).ready(function () {
+        debugger;
+        var redirectUrl = location.host + "Home/Adview";
+        var value = url.substring(url.lastIndexOf('/') + 1);
+        localStorage.setItem('urlcode', value);
+        window.location = redirectUrl;
+    });
+</script>

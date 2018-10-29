@@ -1,0 +1,15 @@
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\UrlShortner.Database.dll.config
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\UrlShortner.Database.dll
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\UrlShortner.Database.pdb
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\AutoMapper.dll
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\EntityFramework.dll
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\EntityFramework.SqlServer.dll
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\System.ValueTuple.dll
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\AutoMapper.pdb
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\AutoMapper.xml
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\EntityFramework.xml
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\EntityFramework.SqlServer.xml
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\bin\Release\System.ValueTuple.xml
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\obj\Release\UrlShortner.Database.dll
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\obj\Release\UrlShortner.Database.pdb
+E:\Projects\Url Short\UrlShortner\UrlShortner\UrlShortner.Database\obj\Release\UrlShortner.Database.csprojResolveAssemblyReference.cache

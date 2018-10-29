@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <style>
+        .nav-tabs {
+            border-color: #1A3E5E;
+            width: 60%;
+        }
+            .nav-tabs > li a {
+                border: 1px solid #1A3E5E;
+                background-color: #C1C1FF;
+                color: #fff;
+            }
+            .nav-tabs > li.active > a,
+            .nav-tabs > li.active > a:focus,
+            .nav-tabs > li.active > a:hover {
+                background-color: #D6E6F3;
+                color: #000;
+                border: 1px solid #1A3E5E;
+                border-bottom-color: transparent;
+            }
+
+            .nav-tabs > li > a:hover {
+                background-color: #D6E6F3 !important;
+                border-radius: 5px;
+                color: #000;
+            }
+        .tab-pane {
+            border: solid 1px #1A3E5E;
+            border-top: 0;
+            width: 60%;
+            background-color: #00006F;
+            padding: 5px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3>A demo of Bootstrap Tabs</h3>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li><a href="#hometab" role="tab" data-toggle="tab">Home</a></li>
+            <li class="active"><a href="#javatab" role="tab" data-toggle="tab">Java</a></li>
+            <li class="disabled"><a href="#csharptab">C#</a></li>
+            <li><a href="#mysqltab" role="tab" data-toggle="tab">MySQL</a></li>
+            <li><a href="#jquerytab" role="tab" data-toggle="tab">jQuery</a></li>
+
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane" id="hometab">Write something for home tab</div>
+            <div class="tab-pane active" id="javatab">
+                The Java is an object-oriented programming language that was developed by James Gosling from the Sun Microsystems in 1995.
+
+                <ul>
+                    <li>Java Array</li>
+                    <li>Java ArrayList</li>
+                    <li>Java Set</li>
+                    <li>Java enum</li>
+                </ul>
+            </div>
+            <div class="tab-pane" id="csharptab">The C# tab is disabled.</div>
+            <div class="tab-pane" id="mysqltab">MySQL is enabled.</div>
+            <div class="tab-pane" id="jquerytab">jQuery is enabled.</div>
+
+        </div>
+    </div>
+</body>
+</html>

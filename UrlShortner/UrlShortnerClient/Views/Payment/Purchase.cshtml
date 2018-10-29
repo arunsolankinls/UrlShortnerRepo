@@ -1,0 +1,271 @@
+﻿@model UrlShortnerClient.Models.AdManageViewModel
+@{
+    ViewBag.Title = UrlShortnerClient.LocalResource.Resource.Home;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int planamount = Convert.ToInt32(TempData["PlanAmount"]);
+    planamount = planamount * 100;
+    //string responsemessage = ViewBag.Message;
+
+    var baseUrl = string.Format("{0}://{1}{2}",
+                  HttpContext.Current.Request.Url.Scheme,
+                  HttpContext.Current.Request.Url.Authority, Url.Content("~"));
+    var hosturl = System.Configuration.ConfigurationManager.AppSettings["HostUrl"].ToString();
+    var hosturlsecure = System.Configuration.ConfigurationManager.AppSettings["HostUrlSecure"].ToString();
+
+    string domain_ijli = System.Configuration.ConfigurationManager.AppSettings["HostUrl2"].ToString();
+    //string IsPaid = Session["PaymentStatus"].ToString();
+    string isPaymentPrecessing = Session["IsPaymentPrecessing"].ToString();
+
+    int rialplanamount = UrlShortnerClient.Comman.PlanCalculate.CalculatePlanAmount(Convert.ToInt32(TempData["PlanAmount"]));
+}
+<script src="~/Themes/ckeditor_full/ckeditor.js"></script>
+<style>
+    .disabledli {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+</style>
+<!-- ===================== -->
+@using (Html.BeginForm("Purchase", "Payment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    if (!string.IsNullOrEmpty(isPaymentPrecessing))
+    {
+        if (isPaymentPrecessing == "True")
+        {
+
+            if (@Model.Paymentstatus == UrlShortnerClient.Comman.CommanClass.PaymentStatus.Sucess)
+            {
+                if (baseUrl.Contains(domain_ijli))
+                {
+                    <div class="persianalert" style="direction:rtl">
+                        <script type="text/javascript">swal("موفقیت", "معامله موفقیت آمیز، شما در 5 ثانیه به صفحه اصلی هدایت می شوید ..."); setInterval(function () { var newURL = window.location.protocol + "//" + window.location.host; window.location = newURL; }, 5000);</script>
+                    </div>
+                }
+                else
+                {
+                    @:
+                    <script type="text/javascript">swal("Success", '@Model.ResponseMessage'); setInterval(function () { var newURL = window.location.protocol + "//" + window.location.host; window.location = newURL; }, 5000);</script>
+                }
+            }
+            if (@Model.Paymentstatus == UrlShortnerClient.Comman.CommanClass.PaymentStatus.Failed)
+            {
+                if (baseUrl.Contains(domain_ijli))
+                {
+                    @*@:<script type="text/javascript">swal("Warning", '@Model.ResponseMessage'); setInterval(function () { var newURL = window.location.protocol + "//" + window.location.host; window.location = newURL; }, 5000);</script>*@
+                    @:
+                    <script type="text/javascript">swal("هشدار", '@Model.ResponseMessage');</script>
+                }
+                else
+                {
+                    @*@:<script type="text/javascript">swal("هشدار", '@Model.ResponseMessage'); setInterval(function () { var newURL = window.location.protocol + "//" + window.location.host; window.location = newURL; }, 5000);</script>*@
+                    @:
+                    <script type="text/javascript">swal("Warning", '@Model.ResponseMessage');</script>
+                }
+            }
+        }
+        else if (isPaymentPrecessing == "False")
+        {
+            if (@Model.Paymentstatus == UrlShortnerClient.Comman.CommanClass.PaymentStatus.Failed)
+            {
+                if (baseUrl.Contains(domain_ijli))
+                {
+                    @:
+                    <script type="text/javascript">swal("هشدار", '@Model.ResponseMessage');</script>
+                }
+                else
+                {
+                    @:
+                    <script type="text/javascript">swal("Warning", '@Model.ResponseMessage');</script>
+                }
+            }
+        }
+        else
+        {
+
+        }
+    }
+    <div class="payment_page_bg">
+        <div id="horizontalTab">
+            <ul class="resp-tabs-list nav nav-tabs">
+                <li id="AdUpload" onclick="AdUploadClick();">@UrlShortnerClient.LocalResource.Resource.AdUpload</li>
+                <li class="disabledli" id="paymentTab">@UrlShortnerClient.LocalResource.Resource.Payment</li>
+            </ul>
+            <div class="resp-tabs-container">
+                <div class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            @UrlShortnerClient.LocalResource.Resource.Title <span class="required">*</span>
+                        </label>
+                        <div class="col-md-7 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(model => model.Title, null, new { @id = "txtTitle", @class = "form-control col-md-7 col-xs-12" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            @UrlShortnerClient.LocalResource.Resource.Description <span class="required">*</span>
+                        </label>
+                        <div class="col-md-7 col-sm-6 col-xs-12">
+                            @Html.TextAreaFor(model => model.Description, new { @id = "FullDescription", @class = "form-control", @rows = "200" })
+                            <script>
+                                CKEDITOR.replace('FullDescription', { toolbar: '1', htmlEncodeOutput: true });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            @UrlShortnerClient.LocalResource.Resource.Examplefileinput<span class="required">*</span>
+                        </label>
+                        <div class="col-md-7 col-sm-6 col-xs-12">
+                            @*<input type="file" class="form-control-file" name="uploadfile" id="uploadfile">*@
+                            @Html.TextBoxFor(model => model.File, new { type = "file", @class = "form-control-file", @name = "uploadfile", @id = "uploadfile" })
+                        </div>
+                    </div>
+                    <div class="tab_btn_box pull-right">
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary"> @UrlShortnerClient.LocalResource.Resource.Cancel</a>
+                        <span class="btn btn-primary" onclick="NextTab();">@UrlShortnerClient.LocalResource.Resource.Next</span>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                @*Stripe Payment*@
+                <div class="row">
+                    <!-- =================== -->
+                    <div class="col-md-9">
+                        <label class="container_radio">
+                            @if (baseUrl.Contains(domain_ijli))
+                            {
+                                <img src="../images/zarinpallogo.png" alt="img" />
+                            }
+                            else
+                            {
+                                <img src="../images/Stripe.png" alt="img" />
+                            }
+                            <input type="checkbox" checked="checked">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <!-- =================== -->
+                    <div class="col-md-3">
+                        <div class="bg_paypalr_right">
+                            <div class="main_tit_purch">@UrlShortnerClient.LocalResource.Resource.PurchaseSummary</div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="f14">@UrlShortnerClient.LocalResource.Resource.Plan:</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="f14" style="text-align:right;">@UrlShortnerClient.LocalResource.Resource.Annual</div>
+                                </div>
+                            </div>
+                            <!-- =================== -->
+                            <div class="spacer10"></div>
+                            <!-- =================== -->
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="f14">@UrlShortnerClient.LocalResource.Resource.Plan:</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    @if (baseUrl.Contains(domain_ijli))
+                                    {
+                                        <div class="f14" style="text-align:right;">&#xFDFC; @rialplanamount</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="f14" style="text-align:right;">&euro;@TempData["PlanAmount"]</div>
+                                    }
+                                </div>
+                            </div>
+                            <!-- =================== -->
+                            <div class="spacer10"></div>
+                            <!-- =================== -->
+                            <div class="main_tit_purch"><a href="@Url.Action("Index", "Plans")">@UrlShortnerClient.LocalResource.Resource.Edit</a></div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="f14">@UrlShortnerClient.LocalResource.Resource.Total:</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    @if (baseUrl.Contains(domain_ijli))
+                                    {
+                                        <div class="f14" style="text-align:right;">&#xFDFC; @rialplanamount</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="f14" style="text-align:right;">&euro;@TempData["PlanAmount"]</div>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- =================== -->
+                            <div class="spacer10"></div>
+                            <!-- =================== -->
+                            @*<div><input type="checkbox"> I agree to the Terms of Useand Privancy Policy.</div>*@
+                            <!-- =================== -->
+                            <div class="spacer10"></div>
+                            <!-- =================== -->
+                            @if (baseUrl.Contains(domain_ijli))
+                            {
+                                @*Zarinpal payment gateway*@
+                                <input type="submit" value="Zarinpal Pay" class="btn btn-primary" id="zarinpalpay" />
+                            }
+                            else
+                            {
+                                <script src="//checkout.stripe.com/v2/checkout.js"
+                                        class="stripe-button"
+                                        data-key="@ViewBag.StripePublishKey"
+                                        data-locale="auto"
+                                        data-description="Sample Charge"
+                                        data-currency="eur"
+                                        data-amount=@planamount>
+                                </script>
+                            }
+                        </div>
+                    </div>
+                    <!-- =================== -->
+                </div>
+                @*</form>*@
+            </div>
+        </div>
+    </div>
+}
+@*</form>*@
+<!-- ===================== -->
+
+<script>
+
+    $('#upload').submit(function (e) {
+        e.preventDefault();
+        $("#paymentTab").removeClass();
+        $("#paymentTab").addClass('resp-tab-active');
+        $("#paymentTab").click();
+        $("#paymentTab").removeClass();
+    });
+    function seccessmessage() {
+        swal("Success", "Transaction Successful,You will redirect to home in 5 second...");
+    }
+
+    function errormessage() {
+        $("#paymentTab").removeClass();
+        $("#paymentTab").addClass('resp-tab-active');
+        $("#paymentTab").click();
+        $("#ModalContainer").removeClass();
+        swal("Warning", "Transaction failed!", "warning");
+    }
+    function NextTab() {
+        if ($("#txtTitle").val() == "") {
+            swal("Warning", "Please enter title", "warning");
+            return false;
+        }
+        var fileUpload = $("#uploadfile").get(0);
+        var files = fileUpload.files;
+
+        if (files.length <= 0) {
+            swal("Warning", "Please upload file", "warning");
+            return false;
+        }
+        $("#paymentTab").removeClass();
+        $("#paymentTab").addClass('resp-tab-active');
+        $("#paymentTab").click();
+        $("#ModalContainer").removeClass();
+    }
+</script>
+

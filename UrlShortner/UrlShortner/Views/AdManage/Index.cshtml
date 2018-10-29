@@ -1,0 +1,62 @@
+﻿@model IEnumerable<UrlShortner.Models.AdManageViewModel>
+@{
+    ViewBag.Title = UrlShortner.LocalResource.Resource.Index;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string hostpath = System.Configuration.ConfigurationManager.AppSettings["HostUrl"].ToString();
+    string adpath = System.Configuration.ConfigurationManager.AppSettings["AdFolder"].ToString();
+    hostpath = hostpath + adpath;
+}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><small>@UrlShortner.LocalResource.Resource.ListofAdvertisement</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                @if (Session["MemberType"].ToString() == "SupperAdmin")
+                                {
+                                    <a href = "@Url.Action("Create")" class="btn btn-primary">@UrlShortner.LocalResource.Resource.AddAd</a>
+                                }
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">@UrlShortner.LocalResource.Resource.Title</th>
+                                        <th class="column-title">@UrlShortner.LocalResource.Resource.Description</th>
+                                        <th class="column-title no-link last"><span class="nobr">@UrlShortner.LocalResource.Resource.Action</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="even pointer">
+                                            <td>@item.Title</td>
+                                            <td>
+                                                @*@item.Description*@
+                                            @Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Description))
+                                        </td>
+                                        <td class="last">
+                                            <a href="@Url.Action("Edit", "AdManage",new { id = item.AdId })" class="btn btn-success">@UrlShortner.LocalResource.Resource.Edit</a>
+                                            <a href="@Url.Action("Delete", "AdManage",new { id = item.AdId })" onclick="return confirm('Are you sure want to delete this record?')" class="btn btn-danger">@UrlShortner.LocalResource.Resource.Delete</a>
+                                            <a href='@(hostpath+item.UploadFile)' target="_blank" class="btn btn-warning">@UrlShortner.LocalResource.Resource.Preview</a>
+                                        </td>
+
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,145 @@
+﻿@model IEnumerable<UrlShortner.Models.UrlShortnerViewModel>
+@{
+    ViewBag.Title = @UrlShortner.LocalResource.Resource.HomePage;
+    string shorturl = "";
+    string hosturl = System.Configuration.ConfigurationManager.AppSettings["HostUrl"].ToString();
+}
+@*string persiandomain = System.Configuration.ConfigurationManager.AppSettings["HostUrl2"].ToString();
+    string currenturl = HttpContext.Current.Request.Url.AbsoluteUri;
+    if (currenturl.Contains(persiandomain))
+    {
+        hosturl = persiandomain;
+    }*@
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><small>@UrlShortner.LocalResource.Resource.ListofShortenUrl</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a href="@Url.Action("Create")" class="btn btn-primary">@UrlShortner.LocalResource.Resource.AddUrl</a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                    <tr class="headings">
+
+                                        <th class="column-title">@UrlShortner.LocalResource.Resource.OriginalUrl Url </th>
+                                        <th class="column-title">@UrlShortner.LocalResource.Resource.ShortUrl </th>
+                                        <th class="column-title no-link last"><span class="nobr">@UrlShortner.LocalResource.Resource.Action</span></th>
+                                        <th class="bulk-actions" colspan="7">
+                                            <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @{
+
+                                        int i = 0;
+                                    }
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            //shorturl = item.ShortUrlKey.Replace(hosturl, "");
+                                            shorturl = item.ShortUrlKey.Substring(item.ShortUrlKey.LastIndexOf("/") + 1);
+                                            //string hostpath = string.Format(System.Configuration.ConfigurationManager.AppSettings["HostUrl"] + "/Ad/{0}.html", shorturl);
+                                            //string hostpath = string.Format(System.Configuration.ConfigurationManager.AppSettings["HostUrl"] + "{0}", shorturl);
+                                            string hostpath = string.Format(hosturl + "{0}", shorturl);
+                                            if ((i % 2) == 0)
+                                            {
+                                                <tr class="even pointer">
+                                                    <td style="width:60%; word-wrap: break-word; word-break: break-all;">@item.OriginalUrl</td>
+                                                    @*<td>@item.ShortUrlKey</td>*@
+                                                    <td> <a href="@hostpath" target="_blank" style="color:#008CBA;"> @item.ShortUrlKey</a> </td>
+                                                    <td class="last">
+                                                        <a href="@Url.Action("Edit", "Home", new { id = item.UrlId })"  class="btn btn-warning">@UrlShortner.LocalResource.Resource.Edit</a>
+                                                        <a href="@Url.Action("Delete", "Home", new { id = item.UrlId })" onclick="return confirm('Are you sure want to delete this record?')" class="btn btn-danger">@UrlShortner.LocalResource.Resource.Delete</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr class="odd pointer">
+                                                    <td style="width:60%;word-wrap: break-word;word-break: break-all;">@item.OriginalUrl</td>
+                                                    @*<td>@item.ShortUrlKey</td>*@
+                                                    <td> <a href="@hostpath" target="_blank" style="color:#008CBA;"> @item.ShortUrlKey </a> </td>
+                                                    <td class="last">
+                                                        <a href="@Url.Action("Edit", "Home", new { id = item.UrlId })" class="btn btn-warning">@UrlShortner.LocalResource.Resource.Edit</a>
+                                                        <a href="@Url.Action("Delete", "Home", new { id = item.UrlId })" onclick="return confirm('Are you sure want to delete this record?')" class="btn btn-danger">@UrlShortner.LocalResource.Resource.Delete</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            i++;
+                                        }
+                                    }
+                                    @*<tr class="odd pointer">
+
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/</td>
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/ </td>
+                                            <td class="last"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                        </tr>
+                                        <tr class="even pointer">
+
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/</td>
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/ </td>
+                                            <td class="last"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                        </tr>
+                                        <tr class="odd pointer">
+
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/</td>
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/ </td>
+                                            <td class="last"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                        </tr>
+                                        <tr class="even pointer">
+
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/</td>
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/ </td>
+                                            <td class="last"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                        </tr>
+                                        <tr class="odd pointer">
+
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/</td>
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/ </td>
+                                            <td class="last"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                        </tr>
+                                        <tr class="even pointer">
+
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/</td>
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/ </td>
+                                            <td class="last"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                        </tr>
+                                        <tr class="odd pointer">
+
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/</td>
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/ </td>
+                                            <td class="last"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                        </tr>
+
+                                        <tr class="even pointer">
+
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/</td>
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/ </td>
+                                            <td class="last"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                        </tr>
+                                        <tr class="odd pointer">
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/</td>
+                                            <td class=" ">http://mynexuslink.nexuslinkservices.com/ </td>
+                                            <td class="last"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                                        </tr>*@
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

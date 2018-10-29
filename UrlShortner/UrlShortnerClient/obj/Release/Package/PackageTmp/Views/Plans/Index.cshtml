@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = UrlShortnerClient.LocalResource.Resource.Plan;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var baseUrl = string.Format("{0}://{1}{2}",
+                  HttpContext.Current.Request.Url.Scheme,
+                  HttpContext.Current.Request.Url.Authority, Url.Content("~"));
+    var hosturl = System.Configuration.ConfigurationManager.AppSettings["HostUrl"].ToString();
+    var hosturlsecure = System.Configuration.ConfigurationManager.AppSettings["HostUrlSecure"].ToString();
+
+    string domain_ijli = System.Configuration.ConfigurationManager.AppSettings["HostUrl2"].ToString();
+}
+
+<!-- ===================== -->
+@using (Html.BeginForm("PaymentSession", "Plans", FormMethod.Post))
+{
+    @Html.Hidden("PlanAmount", new { id = "PlanAmount" })
+
+    <div class="wid60">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box_data_bg">
+                    @*<div class="first_txt">@UrlShortnerClient.LocalResource.Resource.MonthToMonthMembership</div>*@
+                    @if (baseUrl.Contains(domain_ijli))
+                    {
+                        <div class="first_txt">برای امتحان!</div>
+                            <div class="second_txt">
+                                1 ماه با 70 هزار تومان
+                            </div>
+                            }
+                            else
+                            {
+                            <div class="first_txt">Month To Month Membership</div>
+                            <div class="second_txt">
+                                1 month
+                                <br />
+                                15&euro;
+                            </div>
+                            }
+                            <div id="stripeAmount15">
+                                @if ((bool)Session["PaymentStatus"] == false)
+                                {
+                                    <div class="subscribe_btn">
+                                        <a href="@Url.Action("PaymentSession", "Plans", new { PaymentType = 1 })" class="btn btn-success">@UrlShortnerClient.LocalResource.Resource.Subscribe</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+            </div>
+            <!-- =============== -->
+            <div class="col-md-4">
+                <div class="box_data_bg">
+                    @if (baseUrl.Contains(domain_ijli))
+                    {
+                        <div class="first_txt">برای استارت‌آپ تازه تاسیس!</div>
+                        <div class="second_txt">
+                            3 ماه با 170 هزار تومان
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="first_txt">Month To Month Membership</div>
+                        <div class="second_txt">
+                            3 month
+                            <br />
+                            39&euro;
+                        </div>
+                    }
+                    @if ((bool)Session["PaymentStatus"] == false)
+                    {
+                        <div class="subscribe_btn">
+                            <a href="@Url.Action("PaymentSession", "Plans", new { PaymentType = 2 })" class="btn btn-success">@UrlShortnerClient.LocalResource.Resource.Subscribe</a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- =============== -->
+            <div class="col-md-4">
+                <div class="box_data_bg">
+                    @*<div class="first_txt">Month To Month Membership</div>*@
+                    @if (baseUrl.Contains(domain_ijli))
+                    {
+                        <div class="first_txt">برای استارت‌آپ با حجم تبلیغ بالا!</div>
+                        <div class="second_txt">
+                            6 ماه با 270 هزار تومان
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="first_txt">Month To Month Membership</div>
+                        <div class="second_txt">
+                            5 @UrlShortnerClient.LocalResource.Resource.month
+                            <br />
+                            59&euro;
+                        </div>
+                    }
+                    @if ((bool)Session["PaymentStatus"] == false)
+                    {
+                        <div class="subscribe_btn">
+                            <a href="@Url.Action("PaymentSession", "Plans", new { PaymentType = 3 })" class="btn btn-success">@UrlShortnerClient.LocalResource.Resource.Subscribe</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = UrlShortnerClient.LocalResource.Resource.HomePage;
+}
+
+<div class="middle_serch_box_main">
+    <div class="w40">
+        <div class="short_tit"> @UrlShortnerClient.LocalResource.Resource.ShortenURLs</div>
+        <div class="short_inp_box">
+            <input type="text" id="txtUrl" placeholder='@UrlShortnerClient.LocalResource.Resource.YourURLhere'>
+            <a href="javascript:void(0)" onclick="OnGoClick();" id="gobutton" class="go_btn">@UrlShortnerClient.LocalResource.Resource.Go</a>
+            <div class="clearfix"></div>
+        </div>
+        <div id="link_box">
+        </div>
+    </div>
+</div>
+    
+<script type="text/javascript">
+    function OnGoClick() {
+        var HostUrl = $("#ServerURL").val();
+        var OrgUrl = $("#txtUrl").val();
+        var url = HostUrl + 'Home/UrlShortnerAction';
+        $.ajax({
+            url: url,
+            data: { OriginalUrl: OrgUrl },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                if (data == "Login") {
+                    var newURL = HostUrl + "Account/Login/";
+                    window.location = newURL;
+                }
+                else if (data == "Plans") {
+                    var newURL = HostUrl + "Plans/Index";
+                    window.location = newURL;
+                }
+                else {
+                    $("#link_box").html("<div class=link_box> " + data + " </div>");
+                }
+
+            },
+            error: function (data) {
+                alert("error : " + data);
+            }
+        });
+    }
+</script>
+
+@*Click on Enter,this will click on go button*@
+<script>
+    var input = document.getElementById("txtUrl");
+    input.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13)
+        {
+            document.getElementById("gobutton").click();
+        }
+    });
+</script>
